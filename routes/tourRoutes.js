@@ -30,7 +30,7 @@ const {
   //checkID,
   // checkBody,
   // eslint-disable-next-line import/no-dynamic-require
-} = require(`${__dirname}/../controllers/tourcontroller`);
+} = require(`${__dirname}/../controllers/tourController`);
 const router = express.Router();
 
 router.use('/:tourId/reviews', reviewRouter);
