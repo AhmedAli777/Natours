@@ -11,13 +11,9 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
-const { application, json } = require('express');
 
 const AppError = require(`${__dirname}/utils/appError`);
 const globalErrorHandler = require(`${__dirname}/controllers/errorController`);
-const {
-  webhookCheckout,
-} = require(`${__dirname}/controllers/bookingController`);
 const tourRouter = require(`${__dirname}/routes/tourRoutes`);
 const userRouter = require(`${__dirname}/routes/userRoutes`);
 const reviewRouter = require(`${__dirname}/routes/reviewRoutes`);
@@ -31,17 +27,6 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
-// Implement CORS
-app.use(cors());
-// Access-Control-Allow-Origin *
-// api.natours.com, front-end natours.com
-// app.use(cors({
-//   origin: 'https://www.natours.com'
-// }))
-
-app.options('*', cors());
-// app.options('/api/v1/tours/:id', cors());
-
 //Serving static files
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,12 +47,6 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-///stripe
-app.post(
-  '/webhook-checkout',
-  express.raw({ type: application / json }),
-  webhookCheckout
-);
 //Body barser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
