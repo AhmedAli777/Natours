@@ -19,6 +19,7 @@ const userRouter = require(`${__dirname}/routes/userRoutes`);
 const reviewRouter = require(`${__dirname}/routes/reviewRoutes`);
 const bookingRouter = require(`${__dirname}/routes/bookingRoutes`);
 const bookingController = require('./controllers/bookingController');
+
 const viewRouter = require(`${__dirname}/routes/viewRoutes`);
 
 const app = express();
