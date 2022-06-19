@@ -11,11 +11,14 @@ const {
   updateUserData,
   getSignupForm,
   getMyTours,
+  alerts,
 } = require(`${__dirname}/../controllers/viewController`);
 const {
   isLoggedIn,
   protect,
 } = require(`${__dirname}/../controllers/authController`);
+
+router.use(alerts);
 
 router.get('/signup', getSignupForm);
 router.get('/me', protect, getAccount);

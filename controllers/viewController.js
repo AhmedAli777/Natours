@@ -8,6 +8,14 @@ const catchAsync = require(`${__dirname}/../utils/catchAsync`);
 // const factory = require(`${__dirname}/handlerFactory`);
 const AppError = require(`${__dirname}/../utils/appError`);
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'booking')
+    res.locals.alert =
+      "Your booking was successful! Please check your email for a confirmation. If your booking doesn't show up here immediatly, please come back later.";
+  next();
+};
+
 exports.getOverview = catchAsync(async (req, res, next) => {
   //1)Get data from collection
   const tours = await Tour.find();
