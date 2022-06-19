@@ -18,6 +18,7 @@ const tourRouter = require(`${__dirname}/routes/tourRoutes`);
 const userRouter = require(`${__dirname}/routes/userRoutes`);
 const reviewRouter = require(`${__dirname}/routes/reviewRoutes`);
 const bookingRouter = require(`${__dirname}/routes/bookingRoutes`);
+const bookingController = require('./controllers/bookingController');
 const viewRouter = require(`${__dirname}/routes/viewRoutes`);
 
 const app = express();
@@ -28,7 +29,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
 // Implement CORS
-
 app.use(cors());
 // Access-Control-Allow-Origin *
 // api.natours.com, front-end natours.com
@@ -58,6 +58,12 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+//stripe
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 //Body barser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
