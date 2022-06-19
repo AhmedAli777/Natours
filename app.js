@@ -9,8 +9,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-
 const compression = require('compression');
 const cors = require('cors');
 
@@ -21,7 +19,6 @@ const userRouter = require(`${__dirname}/routes/userRoutes`);
 const reviewRouter = require(`${__dirname}/routes/reviewRoutes`);
 const bookingRouter = require(`${__dirname}/routes/bookingRoutes`);
 const viewRouter = require(`${__dirname}/routes/viewRoutes`);
-const bookingController = require('./controllers/bookingController');
 
 const app = express();
 app.enable('trust proxy');
@@ -30,18 +27,6 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
-
-// Implement CORS
-// app.use(cors());
-// // Access-Control-Allow-Origin *
-// // api.natours.com, front-end natours.com
-// // app.use(cors({
-// //   origin: 'https://www.natours.com'
-// // }))
-
-// app.options('*', cors());
-// app.options('/api/v1/tours/:id', cors());
-
 //Serving static files
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -61,12 +46,7 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, Please try agaim in an hour !',
 });
 app.use('/api', limiter);
-//
-// app.post(
-//   '/webhook-checkout',
-//   bodyParser.raw({ type: 'application/json' }),
-//   bookingController.webhookCheckout
-// );
+
 //Body barser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
