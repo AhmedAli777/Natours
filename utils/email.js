@@ -16,8 +16,8 @@ module.exports = class Email {
       return nodemailer.createTransport({
         service: 'SendPulse',
         auth: {
-          user: process.env.SENDPLUSE_USERNAME,
-          pass: process.env.SENDPLUSE_PASSWORD,
+          user: process.env.SENDPULSE_USERNAME,
+          pass: process.env.SENDPULSE_PASSWORD,
         },
       });
     }
