@@ -14,7 +14,7 @@ module.exports = class Email {
     if (process.env.NODE_ENV === 'production') {
       // Sendgrid
       return nodemailer.createTransport({
-        service: 'Hotmail',
+        service: 'SendinBlue',
         auth: {
           user: process.env.EMAIL_USERNAME,
           pass: process.env.EMAIL_PASSWORD,
